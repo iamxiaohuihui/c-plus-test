@@ -1,36 +1,66 @@
 #include <iostream>
-#include <cstring>
+#include <string>
 using namespace std;
 
-struct Books {
-	char title[50];
-	char author[50];
-	char subject[100];
-	int book_id;
-};
+template<class  T>
+void mySwap(T&a,T&b) {
+	T tmp = a;
+	a = b;
+	b = tmp;
+}
+
+template<class T>
+void printArr(T arr[],int len) {
+	for (int i = 0; i < len; i++) {
+		cout << arr[i];
+	}
+
+	cout << endl;
+}
+//实现通用的 对数组进行排序
+template<class T>
+void mySort(T arr[],int len) {
+	for (int i = 0; i < len; i++) {
+		int max = i;
+		for (int j = i + i; j < len; j++) {
+			if (arr[max] < arr[j]) {
+				max = j;
+			}
+		}
+		if (max != i) {
+			//交换
+			mySwap(arr[max], arr[i]);
+		}
+	}
+}
+
+void test01() {
+	char charArr[] = "cdbnaf";
+	int len = sizeof(charArr) / sizeof(char);
+	printArr(charArr, len);
+	mySort(charArr, len);
+	printArr(charArr, len);
+}
+void test02() {
+	int intArr[] = {3,4,6,7,2,3,0,1,9,6,9};
+	int len = sizeof(intArr) / sizeof(int);
+	printArr(intArr, len);
+	mySort(intArr, len);
+	printArr(intArr, len);
+}
+//1、自动类型推到，必须推导出一致的数据类型T才可以使用
+//2、模板必须要确定出T的数据类型，才可以使用
 
 int main() {
-	Books book1;
-	Books book2;
-	strcpy_s(book1.title,"titile1");
-	strcpy_s(book1.author, "autohr1");
-	strcpy_s(book1.subject, "subject1");
-	book1.book_id = 1;
+	
+	int a = 10;
+	int b = 20;
 
-	strcpy_s(book2.title, "titile2");
-	strcpy_s(book2.author, "autohr2");
-	strcpy_s(book2.subject, "subject2");
-	book2.book_id = 2;
+	mySwap(a,b);
 
-	cout << "book1.title:" << book1.title<< endl;
-	cout << "book1.author" << book1.author << endl;
-	cout << "book1.subject" << book1.subject << endl;
-	cout << "book1.book_id" << book1.book_id << endl;
-
-	cout << "book2.title:" << book2.title << endl;
-	cout << "book2.author" << book2.author << endl;
-	cout << "book2.subject" << book2.subject << endl;
-	cout << "book2.book_id" << book2.book_id << endl;
+	cout << "a = " << a << endl;
+	cout << "b = " << b << endl;
+	test02();
 
 	return 1;
 }
