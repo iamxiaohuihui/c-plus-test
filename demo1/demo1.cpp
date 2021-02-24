@@ -11,8 +11,7 @@ using namespace std;
 
 int main()
 {
-	al1();
-	getchar();
+	al3();
 	return 0;
 }
 
